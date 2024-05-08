@@ -1,0 +1,165 @@
+/* Импорт Google Fonts и Font Awesome */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f5f5;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(100vh - 120px);
+  padding: 40px;
+}
+
+.coat-of-arms img,
+.city-view img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.coat-of-arms img:hover,
+.city-view img:hover {
+  transform: scale(1.05);
+}
+
+
+/* Добавляем стили для иконок */
+nav a i {
+  margin-left: 8px; /* Отступ иконки от текста */
+}
+
+.coat-of-arms img,
+.Our-tram img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-left: 950px; /* Добавлено смещение вправо */
+}
+
+.coat-of-arms img:hover,
+.Our-tram img:hover {
+  transform: scale(1.05);
+}
+
+.coat-of-arms img,
+.Our-bus img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-right: 1000px; /* Добавлено смещение вправо */
+}
+
+.coat-of-arms img:hover,
+.Our-bus img:hover {
+  transform: scale(1.05);
+}
+
+.coat-of-arms img,
+.Our-trolleybus img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-left: 1100px; /* Добавлено смещение вправо */
+}
+
+.coat-of-arms img:hover,
+.Our-trolleybus img:hover {
+  transform: scale(1.05);
+}
+
+.coat-of-arms img,
+.Our-Train img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-right: 1100px; /* Добавлено смещение вправо */
+}
+
+.coat-of-arms img:hover,
+.Our-Train img:hover {
+  transform: scale(1.05);
+}
+
+.coat-of-arms img,
+.Our-Metro img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-left: 1100px; /* Добавлено смещение вправо */
+}
+
+.coat-of-arms img:hover,
+.Our-Metro img:hover {
+  transform: scale(1.05);
+}
+
+/* Обновленные стили для кнопок */
+
+.buttons-container {
+  display: flex;
+  align-items: center; /* Выравниваем элементы по вертикали */
+}
+
+.buttons-container a {
+  margin-left: 2px; /* Уменьшен горизонтальный отступ */
+  padding: 10px 20px; /* Уменьшен внутренний отступ */
+  border-radius: 20px; /* Увеличен радиус закругления */
+  background-color: #ff6600; /* Цвет кнопок */
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+.buttons-container a:hover {
+  background-color: #ff8533; /* Изменение цвета кнопок при наведении */
+  transform: scale(1.05); /* Увеличение размера кнопок при наведении */
+}
+
+.buttons-container a i {
+  margin-left: 8px; /* Отступ иконки от текста */
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.text-content {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.gif-content {
+  flex: 1;
+}
+
+.gif-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+nav li:not(.buttons-container) {
+  margin-right: 20px; /* Добавлено отрицательное значение для сдвига влево */
+}

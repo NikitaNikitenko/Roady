@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
+        }
+        #map-container {
+            flex-grow: 1;
+            position: relative;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        #form-container {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        #form-container h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        #form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #form-container input[type="text"],
+        #form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #form-container button:hover {
+            background-color: #45a049;
+        }
+        #swap-button {
+            position: absolute;
+            top: 110px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+        #swap-button::before, #swap-button::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-top: 2px solid #000;
+            border-right: 2px solid #000;
+            transform: rotate(45deg);
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            background-color: transparent;
+        }
+        #swap-button::after {
+            transform: rotate(-135deg);
+        }
+    </style>
+</head>
+<body>
+
+<div id="map-container">
+    <div id="form-container">
+        <h2>Подорож</h2>
+        <form id="journey-form">
+            <label for="from">Звідки:</label>
+            <input type="text" id="from" name="from" placeholder="Місце відправлення" required>
+            
+            <label for="to">Куди:</label>
+            <input type="text" id="to" name="to" placeholder="Місце призначення" required>
+
+            <label for="transport">Транспорт:</label>
+            <select id="transport" name="transport">
+                <option value="bus">Автобус</option>
+                <option value="train">Поїзд</option>
+                <option value="tram">Трамвай</option>
+                <option value="trolleybus">Тролейбус</option>
+                <option value="metro">Метро</option>
+            </select>
+
+            <button type="submit">Вирушити в дорогу</button>
+        </form>
+    </div>
+    <div id="map"></div>
+    <button id="swap-button" onclick="swapPlaces()" aria-label="Поміняти місцями">&#x21C5;</button>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([49.988358, 36.232845], 9);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([49.988358, 36.232845]).addTo(map)
+        .bindPopup('Харків')
+        .openPopup();
+
+    // Додавання обробника форми
+    document.getElementById('journey-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Попередження відправки форми
+
+        var from = document.getElementById('from').value;
+        var to = document.getElementById('to').value;
+        var transport = document.getElementById('transport').value;
+
+        // Тут можна додати логіку для відправки даних або обробки маршрутного листа
+        console.log('Звідки:', from);
+        console.log('Куди:', to);
+        console.log('Транспорт:', transport);
+    });
+</script>
+
+</body>
+</html>
