@@ -1,0 +1,123 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  z-index: 2;
+  position: relative;
+}
+
+.container:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  color: #ffea00;
+  margin-bottom: 25px;
+  font-size: 36px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 25px;
+}
+
+.tablinks {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: 0.3s;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+}
+
+.tablinks:hover {
+  color: #ffea00;
+}
+
+.tablinks.active {
+  border-bottom: 3px solid #ffea00;
+  color: #333;
+}
+
+.tabcontent {
+  display: none;
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px 12px 40px; 
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-group input:focus {
+  border-color: #6e8efb;
+  box-shadow: 0 0 5px rgba(110, 142, 251, 0.5);
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px; 
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 18px;
+}
+
+button[type=submit] {
+  background-color: #00d95a;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[type=submit]:hover {
+  background-color: #00c652;
+  transform: translateY(-2px);
+}

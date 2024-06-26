@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Графік громадського транспорту</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            position: relative;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .map-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #8e2de2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filters select, .filters input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #f9f9f9;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .map-button:hover {
+            background-color: #4a00e0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out 0.5s backwards;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #8e2de2;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f0f8ff;
+            transition: background-color 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .scrollable {
+            max-height: 600px; 
+            overflow-y: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container scrollable">
+        <h1>Графік громадського транспорту</h1>
+        <div class="filters">
+            <select id="transportFilter" onchange="filterTable()">
+                <option value="trolleybus">Тролейбус</option>
+                <option value="bus">Автобус</option>
+                <option value="metro">Метро</option>
+                <option value="tram">Трамвай</option>
+            </select>
+            <input type="date" id="dateFilter" onchange="filterTable()">
+            <input type="time" id="timeFilter" onchange="filterTable()">
+        </div>
+        <table id="transport-schedule">
+            <thead>
+                <tr>
+                    <th>Маршрут</th>
+                    <th>Час відправлення</th>
+                    <th>Час прибуття</th>
+                    <th>Дата</th>
+                    <th>Транспорт</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Данные будут заполнены через JavaScript -->
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button class="map-button" onclick="window.location.href='Map.html'">На мапу</button>
+        </div>
+    </div>
+
+    <script>
+        const scheduleData = [
+
+            { route: "101", departure: "08:00", arrival: "08:30", date: "2023-04-01", transport: "bus" },
+            { route: "102", departure: "08:15", arrival: "08:45", date: "2023-04-01", transport: "bus" },
+            { route: "103", departure: "08:30", arrival: "09:00", date: "2023-04-01", transport: "bus" },
+            { route: "104", departure: "08:45", arrival: "09:15", date: "2023-04-01", transport: "bus" },
+            { route: "105", departure: "09:00", arrival: "09:30", date: "2023-04-01", transport: "bus" },
+            { route: "106", departure: "09:15", arrival: "09:45", date: "2023-04-01", transport: "bus" },
+            { route: "107", departure: "09:30", arrival: "10:00", date: "2023-04-01", transport: "bus" },
+            { route: "108", departure: "09:45", arrival: "10:15", date: "2023-04-01", transport: "bus" },
+            { route: "109", departure: "10:00", arrival: "10:30", date: "2023-04-01", transport: "bus" },
+            { route: "110", departure: "10:15", arrival: "10:45", date: "2023-04-01", transport: "bus" },
+            { route: "111", departure: "10:30", arrival: "11:00", date: "2023-04-01", transport: "bus" },
+            { route: "112", departure: "10:45", arrival: "11:15", date: "2023-04-01", transport: "bus" },
+            { route: "113", departure: "11:00", arrival: "11:30", date: "2023-04-01", transport: "bus" },
+            { route: "114", departure: "11:15", arrival: "11:45", date: "2023-04-01", transport: "bus" },
+            { route: "115", departure: "11:30", arrival: "12:00", date: "2023-04-01", transport: "bus" },
+            { route: "116", departure: "11:45", arrival: "12:15", date: "2023-04-01", transport: "bus" },
+            { route: "117", departure: "12:00", arrival: "12:30", date: "2023-04-01", transport: "bus" },
+            { route: "118", departure: "12:15", arrival: "12:45", date: "2023-04-01", transport: "bus" },
+            { route: "119", departure: "12:30", arrival: "13:00", date: "2023-04-01", transport: "bus" },
+            { route: "120", departure: "12:45", arrival: "13:15", date: "2023-04-01", transport: "bus" },
+
+            { route: "201", departure: "08:00", arrival: "08:30", date: "2023-04-02", transport: "tram" },
+            { route: "202", departure: "08:15", arrival: "08:45", date: "2023-04-02", transport: "tram" },
+            { route: "203", departure: "08:30", arrival: "09:00", date: "2023-04-02", transport: "tram" },
+            { route: "204", departure: "08:45", arrival: "09:15", date: "2023-04-02", transport: "tram" },
+            { route: "205", departure: "09:00", arrival: "09:30", date: "2023-04-02", transport: "tram" },
+            { route: "206", departure: "09:15", arrival: "09:45", date: "2023-04-02", transport: "tram" },
+            { route: "207", departure: "09:30", arrival: "10:00", date: "2023-04-02", transport: "tram" },
+            { route: "208", departure: "09:45", arrival: "10:15", date: "2023-04-02", transport: "tram" },
+            { route: "209", departure: "10:00", arrival: "10:30", date: "2023-04-02", transport: "tram" },
+            { route: "210", departure: "10:15", arrival: "10:45", date: "2023-04-02", transport: "tram" },
+            { route: "211", departure: "10:30", arrival: "11:00", date: "2023-04-02", transport: "tram" },
+            { route: "212", departure: "10:45", arrival: "11:15", date: "2023-04-02", transport: "tram" },
+            { route: "213", departure: "11:00", arrival: "11:30", date: "2023-04-02", transport: "tram" },
+            { route: "214", departure: "11:15", arrival: "11:45", date: "2023-04-02", transport: "tram" },
+            { route: "215", departure: "11:30", arrival: "12:00", date: "2023-04-02", transport: "tram" },
+            { route: "216", departure: "11:45", arrival: "12:15", date: "2023-04-02", transport: "tram" },
+            { route: "217", departure: "12:00", arrival: "12:30", date: "2023-04-02", transport: "tram" },
+            { route: "218", departure: "12:15", arrival: "12:45", date: "2023-04-02", transport: "tram" },
+            { route: "219", departure: "12:30", arrival: "13:00", date: "2023-04-02", transport: "tram" },
+            { route: "220", departure: "12:45", arrival: "13:15", date: "2023-04-02", transport: "tram" },
+
+            { route: "301", departure: "08:00", arrival: "08:15", date: "2023-04-03", transport: "metro" },
+            { route: "302", departure: "08:15", arrival: "08:30", date: "2023-04-03", transport: "metro" },
+            { route: "303", departure: "08:30", arrival: "08:45", date: "2023-04-03", transport: "metro" },
+            { route: "304", departure: "08:45", arrival: "09:00", date: "2023-04-03", transport: "metro" },
+            { route: "305", departure: "09:00", arrival: "09:15", date: "2023-04-03", transport: "metro" },
+            { route: "306", departure: "09:15", arrival: "09:30", date: "2023-04-03", transport: "metro" },
+            { route: "307", departure: "09:30", arrival: "09:45", date: "2023-04-03", transport: "metro" },
+            { route: "308", departure: "09:45", arrival: "10:00", date: "2023-04-03", transport: "metro" },
+            { route: "309", departure: "10:00", arrival: "10:15", date: "2023-04-03", transport: "metro" },
+            { route: "310", departure: "10:15", arrival: "10:30", date: "2023-04-03", transport: "metro" },
+            { route: "311", departure: "10:30", arrival: "10:45", date: "2023-04-03", transport: "metro" },
+            { route: "312", departure: "10:45", arrival: "11:00", date: "2023-04-03", transport: "metro" },
+            { route: "313", departure: "11:00", arrival: "11:15", date: "2023-04-03", transport: "metro" },
+            { route: "314", departure: "11:15", arrival: "11:30", date: "2023-04-03", transport: "metro" },
+            { route: "315", departure: "11:30", arrival: "11:45", date: "2023-04-03", transport: "metro" },
+            { route: "316", departure: "11:45", arrival: "12:00", date: "2023-04-03", transport: "metro" },
+            { route: "317", departure: "12:00", arrival: "12:15", date: "2023-04-03", transport: "metro" },
+            { route: "318", departure: "12:15", arrival: "12:30", date: "2023-04-03", transport: "metro" },
+            { route: "319", departure: "12:30", arrival: "12:45", date: "2023-04-03", transport: "metro" },
+            { route: "320", departure: "12:45", arrival: "13:00", date: "2023-04-03", transport: "metro" },
+
+            { route: "401", departure: "08:00", arrival: "08:30", date: "2023-04-04", transport: "trolleybus" },
+            { route: "402", departure: "08:15", arrival: "08:45", date: "2023-04-04", transport: "trolleybus" },
+            { route: "403", departure: "08:30", arrival: "09:00", date: "2023-04-04", transport: "trolleybus" },
+            { route: "404", departure: "08:45", arrival: "09:15", date: "2023-04-04", transport: "trolleybus" },
+            { route: "405", departure: "09:00", arrival: "09:30", date: "2023-04-04", transport: "trolleybus" },
+            { route: "406", departure: "09:15", arrival: "09:45", date: "2023-04-04", transport: "trolleybus" },
+            { route: "407", departure: "09:30", arrival: "10:00", date: "2023-04-04", transport: "trolleybus" },
+            { route: "408", departure: "09:45", arrival: "10:15", date: "2023-04-04", transport: "trolleybus" },
+            { route: "409", departure: "10:00", arrival: "10:30", date: "2023-04-04", transport: "trolleybus" },
+            { route: "410", departure: "10:15", arrival: "10:45", date: "2023-04-04", transport: "trolleybus" },
+            { route: "411", departure: "10:30", arrival: "11:00", date: "2023-04-04", transport: "trolleybus" },
+            { route: "412", departure: "10:45", arrival: "11:15", date: "2023-04-04", transport: "trolleybus" },
+            { route: "413", departure: "11:00", arrival: "11:30", date: "2023-04-04", transport: "trolleybus" },
+            { route: "414", departure: "11:15", arrival: "11:45", date: "2023-04-04", transport: "trolleybus" },
+            { route: "415", departure: "11:30", arrival: "12:00", date: "2023-04-04", transport: "trolleybus" },
+            { route: "416", departure: "11:45", arrival: "12:15", date: "2023-04-04", transport: "trolleybus" },
+            { route: "417", departure: "12:00", arrival: "12:30", date: "2023-04-04", transport: "trolleybus" },
+            { route: "418", departure: "12:15", arrival: "12:45", date: "2023-04-04", transport: "trolleybus" },
+            { route: "419", departure: "12:30", arrival: "13:00", date: "2023-04-04", transport: "trolleybus" },
+            { route: "420", departure: "12:45", arrival: "13:15", date: "2023-04-04", transport: "trolleybus" },
+        ];
+
+        const tableBody = document.querySelector("#transport-schedule tbody");
+        const renderTable = (data) => {
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.route}</td>
+                    <td>${item.departure}</td>
+                    <td>${item.arrival}</td>
+                    <td>${item.date}</td>
+                    <td>${item.transport}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        };
+
+        function filterTable() {
+            const transportFilter = document.getElementById('transportFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const timeFilter = document.getElementById('timeFilter').value;
+
+            const filteredData = scheduleData.filter(item => {
+                let match = true;
+
+                if (transportFilter !== "" && item.transport !== transportFilter) {
+                    match = false;
+                }
+
+                if (dateFilter && item.date !== dateFilter) {
+                    match = false;
+                }
+
+                if (timeFilter && item.departure !== timeFilter) {
+                    match = false;
+                }
+
+                return match;
+            });
+
+            if (transportFilter === "" && dateFilter === "" && timeFilter === "") {
+                renderTable([]); 
+            } else {
+                renderTable(filteredData);
+            }
+        }
+
+        filterTable();
+    </script>
+</body>
+</html>

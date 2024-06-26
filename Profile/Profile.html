@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профіль користувача</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            background-color: #fff;
+            min-height: 90vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            margin-right: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 20px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #dfe6e9;
+            padding: 15px 25px;
+            display: block;
+            border-radius: 10px;
+            background-color: #636e72;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #00b894;
+            transform: translateX(8px);
+        }
+        .content {
+            padding: 40px 50px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #f1f2f6;
+            border-radius: 15px;
+        }
+        .content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #2d3436;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: space-between;
+        }
+        .form-group label {
+            width: 25%;
+            font-weight: bold;
+            color: #2d3436;
+        }
+        .form-group input {
+            width: 70%;
+            padding: 14px;
+            border: 1px solid #ced6e0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+        .form-group input:focus {
+            border-color: #00b894;
+            box-shadow: 0 0 8px rgba(0, 184, 148, 0.2);
+        }
+        .form-group input[type="password"] {
+            padding-right: 45px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #636e72;
+            transition: color 0.3s;
+        }
+        .toggle-password:hover {
+            color: #2d3436;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px;
+        }
+        .form-actions button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .form-actions .cancel {
+            background-color: #d63031;
+            color: #fff;
+        }
+        .form-actions .cancel:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        .form-actions .save {
+            background-color: #00b894;
+            color: #fff;
+        }
+        .form-actions .save:hover {
+            background-color: #009b79;
+            transform: translateY(-2px);
+        }
+        .note {
+            color: #d63031;
+            font-size: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+    .sidebar ul li.active a {
+        background-color: #00b894;
+        color: #fff;
+    }
+    .content form {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group input[type="password"] {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .toggle-password::before {
+        content: "👁️";
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li class="active"><a href="#">Профіль</a></li>
+                <li><a href="ActivePodorozh.html">Активна подорож</a></li>
+                <li><a href="HistoryPodorozh.html">Історія подорожей</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Профіль користувача</h1>
+            <form>
+                <div class="form-group">
+                    <label for="firstName">Ім'я</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Ім'я">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Прізвище</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Прізвище">
+                </div>
+                <div class="form-group">
+                    <label for="username">Ім'я користувача</label>
+                    <input type="text" id="username" name="username" placeholder="Ім'я користувача">
+                </div>
+                <div class="form-group">
+                    <label for="email">Електронна адреса</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефону</label>
+                    <input type="tel" id="phone" name="phone" placeholder="123-456-7890">
+                </div>
+                <div class="form-group">
+                    <label for="location">Місцезнаходження (не обов'язково)</label>
+                    <input type="text" id="location" name="location" placeholder="Місцезнаходження">
+                </div>
+                <div class="form-group">
+                    <label for="currentPassword">Поточний пароль</label>
+                    <input type="password" id="currentPassword" name="currentPassword">
+                    <span class="toggle-password" onclick="togglePassword('currentPassword')"></span>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Новий пароль</label>
+                    <input type="password" id="newPassword" name="newPassword">
+                    <span class="toggle-password" onclick="togglePassword('newPassword')"></span>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Підтвердіть новий пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword">
+                    <span class="toggle-password" onclick="togglePassword('confirmPassword')"></span>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel">Відмінити</button>
+                    <button type="submit" class="save">Зберегти</button>
+                </div>
+                <p class="note">*Увага ваш профіль користувача не заповнено. Для пришвидшення оформлення квитків, рекомендується це зробити</p>
+            </form>
+        </div>
+    </div>
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const fieldType = field.getAttribute("type");
+            if (fieldType === "password") {
+                field.setAttribute("type", "text");
+            } else {
+                field.setAttribute("type", "password");
+            }
+        }
+    </script>
+</body>
+</html>

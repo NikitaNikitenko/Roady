@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Roady</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-space-dynamic.css">
+    <link rel="stylesheet" href="assets/css/animated.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/header2.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/buttonMap.css">
+    <link rel="stylesheet" href="assets/css/buttonsMap2.css">
+    <link rel="stylesheet" href="assets/css/footer2.css">
+    <script src="assets/js/header.js"></script>
+
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header id="cs-navigation">
+    <div class="cs-container">
+        <!--Nav Logo-->
+        <!--Logo is turned white in the css with a filter on dark mode-->
+        <a href="" class="cs-logo" aria-label="back to home">
+            <img src="assets/images/RLOGO.png" alt="logo" width="210" height="29" aria-hidden="true" decoding="async">
+        </a>
+
+        <!--Navigation List-->
+        <nav class="cs-nav" role="navigation">
+            <!--Mobile Nav Toggle-->
+            <button class="cs-toggle" aria-label="mobile menu toggle">
+                <div class="cs-box" aria-hidden="true">
+                    <span class="cs-line cs-line1" aria-hidden="true"></span>
+                    <span class="cs-line cs-line2" aria-hidden="true"></span>
+                    <span class="cs-line cs-line3" aria-hidden="true"></span>
+                </div>
+            </button>
+            <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
+            <div class="cs-ul-wrapper">
+                <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
+                    <li class="cs-li">
+                        <a href="MainProject.html" class="cs-li-link cs-active">
+                          Головна
+                        </a>
+                    </li>
+                    <li class="cs-li">
+                      <a href="Map/MAINMAP.html" class="cs-li-link">
+                          Мапа мiста
+                      </a>
+                  </li>
+                  <!--Copy and paste this cs-dropdown list item and replace any .cs-li with this cs-dropdown group to make a new dropdown and it will work-->
+                  <li class="cs-li cs-dropdown" tabindex="0">
+                      <span class="cs-li-link">
+                          Про нас
+                          <img class="cs-drop-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/down-gold.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
+                      </span>
+                      <ul class="cs-drop-ul">
+                          <li class="cs-drop-li">
+                              <a href="WhyWe/WhyChooseUs.html" class="cs-li-link cs-drop-link">Хто ми?</a>
+                          </li>
+                          <li class="cs-drop-li">
+                              <a href="" class="cs-li-link cs-drop-link">Контакти</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="cs-li cs-dropdown" tabindex="0">
+                      <span class="cs-li-link">
+                          Корисна iнформацiя
+                          <img class="cs-drop-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/down-gold.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
+                      </span>
+                      <ul class="cs-drop-ul">
+                          <li class="cs-drop-li">
+                              <a href="Rozklad/Ticket.html" class="cs-li-link cs-drop-link">Розклад</a>
+                          </li>
+                          <li class="cs-drop-li">
+                            <a href="HowItWork/HowItWork.html" class="cs-li-link cs-drop-link">Як це працює?</a>
+                        </li>
+                        </ul>
+                    <li class="cs-li">
+                        <a href="Support/Support.html" class="cs-li-link">
+                          Пiдтримка
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="cs-contact-group">
+
+          <style>
+
+            .cs-login-button {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .cs-login-button::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 300%;
+                height: 300%;
+                background-color: rgba(0, 123, 255, 0.2);
+                transition: all 0.4s ease;
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                z-index: 0;
+            }
+
+            .cs-login-button:hover::before {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .cs-login-button span {
+                position: relative;
+                z-index: 1;
+            }
+        </style>
+          <button class="cs-login-button" style="width: 170px; height: 40px; background-color: #ffffff; color: #007bff; border: 2px solid #007bff; border-radius: 35px; font-size: 18px; font-weight: bold; text-align: center; position: relative;" onclick="window.location.href = 'Login/Login.html';">
+            <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%);">
+                <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Login" width="32" height="32" style="vertical-align: middle; margin-right: 10px;">
+            </span>
+            Вхiд
+        </button>
+
+            <div class="cs-social">
+                <a href="" class="cs-social-link">
+                    <img class="cs-social-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/facebook-1a.svg" alt="logo" width="12" height="12" aria-hidden="true" decoding="async">
+                </a>
+                <a href="" class="cs-social-link">
+                    <img class="cs-social-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/twitter-1a.svg" alt="logo" width="12" height="12" aria-hidden="true" decoding="async">
+                </a>
+                <a href="" class="cs-social-link">
+                    <img class="cs-social-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/instagram1a.svg" alt="logo" width="12" height="12" aria-hidden="true" decoding="async">
+                </a>
+                <a href="" class="cs-social-link">
+                    <img class="cs-social-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/youtube1a.svg" alt="logo" width="12" height="12" aria-hidden="true" decoding="async">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <h2>Це <em>ROADY</em> - твій онлайн помічник</h2>
+                <a href="Rozklad/Ticket.html" class="cs-button-6" aria-label="read more about us">
+                  Розклад
+                  <svg class="cs-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.92 11.62C17.8724 11.4973 17.801 11.3851 17.71 11.29L12.71 6.29C12.6168 6.19676 12.5061 6.1228 12.3842 6.07234C12.2624 6.02188 12.1319 5.99591 12 5.99591C11.7337 5.99591 11.4783 6.1017 11.29 6.29C11.1968 6.38324 11.1228 6.49393 11.0723 6.61575C11.0219 6.73758 10.9959 6.86814 10.9959 7C10.9959 7.2663 11.1017 7.5217 11.29 7.71L14.59 11H7C6.73478 11 6.48043 11.1054 6.29289 11.2929C6.10536 11.4804 6 11.7348 6 12C6 12.2652 6.10536 12.5196 6.29289 12.7071C6.48043 12.8946 6.73478 13 7 13H14.59L11.29 16.29C11.1963 16.383 11.1219 16.4936 11.0711 16.6154C11.0203 16.7373 10.9942 16.868 10.9942 17C10.9942 17.132 11.0203 17.2627 11.0711 17.3846C11.1219 17.5064 11.1963 17.617 11.29 17.71C11.383 17.8037 11.4936 17.8781 11.6154 17.9289C11.7373 17.9797 11.868 18.0058 12 18.0058C12.132 18.0058 12.2627 17.9797 12.3846 17.9289C12.5064 17.8781 12.617 17.8037 12.71 17.71L17.71 12.71C17.801 12.6149 17.8724 12.5028 17.92 12.38C18.02 12.1365 18.02 11.8635 17.92 11.62Z" fill="#1A1A1A"/>
+                  </svg>
+              </a>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="https://i.gifer.com/Ddn0.gif" alt="team meeting" class="rounded-gif">
+            </div>
+<style>
+  .rounded-gif {
+    border-radius: 55px;
+}
+
+</style>            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="about" class="about-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="left-image wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Bus.svg/2560px-Bus.svg.png" alt="person graphic">
+          </div>
+        </div>
+        <div class="col-lg-8 align-self-center">
+          <div class="services">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                  <div class="icon">
+                    <img src="https://pnghq.com/wp-content/uploads/money-illustration-%E2%80%8B-png-download.png" alt="reporting">
+                  </div>
+                  <div class="right-text">
+                    <h4>Цiни</h4>
+                    <p>Доступні на весь міський транспорт</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+                  <div class="icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/10144/10144900.png" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Транспорт</h4>
+                    <p>Зібрано абсолютно весь міський транспорт</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.9s">
+                  <div class="icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4230/4230745.png" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Пiдтримка</h4>
+                    <p>Проблеми, питання, пропозиції - служба підтримки готова допомогти вам</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="1.1s">
+                  <div class="icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/235/235861.png" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Мапа</h4>
+                    <p>Легко обирайте точку відправлення та отримуйте найдоступніший маршрут</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="services" class="our-services section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center  wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="left-image">
+            <img src="https://img.freepik.com/premium-vector/book-bus-ticket-online-concept-idea-travel-tourism-planning-trip-online-buy-ticket-bus-app-illustration_277904-4913.jpg" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="section-heading">
+            <h2><em>Зручність</em> &amp; <span>практичність</span></h2>
+            <p>Наш сервіс надає найкращі послуги, які не мають конкурентів. Ми поєднали всі корисні сервіси в один. Вам потрібно лише телефон або комп'ютер, щоб скористатися нашими послугами. Легко вибирайте маршрут та зручний для вас транспорт!</p>
+          </div>
+          <div class="cnr-image">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/012/980/766/small_2x/express-delivery-icon-concept-for-shipping-services-modern-design-with-gradient-color-png.png" alt="" width="110" height="230">
+        </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="portfolio" class="our-portfolio section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading  wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <h2>Переглянь доступний <em>Транспорт</em></h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-sm-6">
+          <a href="#">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+              <div class="hidden-content">
+                <h4>Метро</h4>
+                <p>Швидке переміщення містом без заторів</p>
+              </div>
+              <div class="showed-content">
+                <img src="https://png.pngtree.com/element_our/20200703/ourlarge/pngtree-subway-travel-railroad-train-image_2301437.jpg" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="#">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+              <div class="hidden-content">
+                <h4>Тролейбус</h4>
+                <p>Екологічний транспорт для затишних поїздок містом</p>
+              </div>
+              <div class="showed-content">
+                <img src="https://w7.pngwing.com/pngs/252/831/png-transparent-tram-transport-bus.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="#">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+              <div class="hidden-content">
+                <h4>Трамвай</h4>
+                <p>Надійний та комфортний спосіб пересування з мальовничими видами</p>
+              </div>
+              <div class="showed-content">
+                <img src="https://w7.pngwing.com/pngs/430/902/png-transparent-trolleybus-%D0%A5%D0%B0%D1%80%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B8%D0%B9-%D1%82%D1%80%D0%BE%D0%BB%D0%B5%D0%B9%D0%B1%D1%83%D1%81-transport-bus-compact-car-mode-of-transport-public-transport.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="#">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+              <div class="hidden-content">
+                <h4>Автобус</h4>
+                <p>Сучасний транспорт із зручностями для комфортної їзди</p>
+              </div>
+              <div class="showed-content">
+                <img src="https://w7.pngwing.com/pngs/580/701/png-transparent-school-bus-bus-compact-car-car-school-bus.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact" class="contact-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <div class="section-heading">
+            <h2>Виникло питання? Напишіть нам -> </h2>
+            <div class="phone-info">
+              <h4>Або можете зателефонувати за номером: <span><i class="fa fa-phone"></i> <a href="#">010-020-0340</a></span></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <form id="contact" action="" method="post">
+            <div class="row">
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="name" name="name" id="name" placeholder="Ім'я" autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="surname" name="surname" id="surname" placeholder="Прізвище" autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Електронна пошта" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" type="text" class="form-control" id="message" placeholder="Повідомлення" required=""></textarea>  
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="main-button ">Надіслати повідомлення</button>
+                </fieldset>
+              </div>
+            </div>
+            <div class="contact-dec">
+              <img src="assets/images/contact-decoration.png" alt="">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer-1147">
+    <div class="cs-container">
+        <div class="cs-top">
+            <a aria-label="go back to home" class="cs-logo" href="">
+                <img class="cs-logo-img" loading="lazy" decoding="async" src="assets/images/LOGO.png" alt="logo" width="158" height="48">
+            </a>
+            <ul class="cs-ul">
+                <li class="cs-li">
+                    <a href="index.html" class="cs-link">Головна</a>
+                </li>
+                <li class="cs-li">
+                    <a href="WhyWe/WhyChooseUs.html" class="cs-link">Про нас</a>
+                </li>
+                <li class="cs-li">
+                    <a href="Rozklad/Ticket.html" class="cs-link">Розклад</a>
+                </li>
+                <li class="cs-li">
+                    <a href="FAQ/FAQ.html" class="cs-link">Частi запитання</a>
+                </li>
+                <li class="cs-li">
+                    <a href="Support/Support.html" class="cs-link">Пiдтримка</a>
+                </li>
+            </ul>
+        </div>
+        <div class="cs-bottom">
+            <!--Social-->
+            <ul class="cs-social">
+                <li class="cs-social-li">
+                    <a href="" class="cs-social-link" aria-label="facebook" target="_blank" rel="noopener">
+                        <img class="cs-social-icon cs-default" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/facebook-white.svg" alt="icon" loading="lazy" decoding="async" width="12" height="12" aria-hidden="true">
+                    </a>
+                </li>
+                <li class="cs-social-li">
+                    <a href="" class="cs-social-link" aria-label="twitter" target="_blank" rel="noopener">
+                        <img class="cs-social-icon cs-default" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/twitter-white.svg" alt="icon" loading="lazy" decoding="async" width="12" height="12" aria-hidden="true">
+                    </a>
+                </li>
+                <li class="cs-social-li">
+                    <a href="" class="cs-social-link" aria-label="instagram" target="_blank" rel="noopener">
+                        <img class="cs-social-icon cs-default" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/instagram-transparent.svg" alt="icon" loading="lazy" decoding="async" width="12" height="12" aria-hidden="true">
+                    </a>
+                </li>
+                <li class="cs-social-li">
+                    <a href="" class="cs-social-link" aria-label="twitter" target="_blank" rel="noopener">
+                        <img class="cs-social-icon cs-default" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/youtube-transparent2.svg" alt="icon" loading="lazy" decoding="async" width="12" height="12" aria-hidden="true">
+                    </a>
+                </li>
+            </ul>
+            <span class="cs-copyright">
+                © Copyright 2024 - <a href="" class="cs-copyright-link">Roady Organization</a>
+            </span>
+        </div>
+    </div>
+    <!--Background-->
+    <picture class="cs-background">
+        <!--Mobile Image-->
+        <source media="(max-width: 600px)" srcset="https://siddharthpetro.com/wp-content/uploads/2019/09/insurance-footer-background.png">
+        <!--Tablet and above Image-->
+        <source media="(min-width: 601px)" srcset="https://siddharthpetro.com/wp-content/uploads/2019/09/insurance-footer-background.png">
+        <img loading="lazy" decoding="async" src="https://siddharthpetro.com/wp-content/uploads/2019/09/insurance-footer-background.png" alt="kids" width="1280" height="568">
+    </picture>
+</footer>
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/animation.js"></script>
+  <script src="assets/js/imagesloaded.js"></script>
+  <script src="assets/js/templatemo-custom.js"></script>
+
+</body>
+</html>

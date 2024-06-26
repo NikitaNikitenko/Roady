@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Активная поездка</title>
+    <link rel="stylesheet" href="ActivePodorozh.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            background-color: #fff;
+            min-height: 90vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 30px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            margin-right: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 20px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #dfe6e9;
+            padding: 15px 25px;
+            display: block;
+            border-radius: 10px;
+            background-color: #636e72;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #00b894;
+            transform: translateX(8px);
+        }
+        .main-content {
+            padding: 40px 50px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #f1f2f6;
+            border-radius: 15px;
+        }
+        .main-content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #2d3436;
+            font-weight: 700;
+        }
+        .ticket {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .ticket img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .ticket button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .ticket button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+    <div class="container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="Profile.html">Профiль</a></li>
+                <li><a href="ActivePodorozh.html" class="active">Активна подорож</a></li>
+                <li><a href="HistoryPodorozh.html">Історія подорожей</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <h1>Активная подорож</h1>
+            <div class="ticket">
+                <img src="https://static.vecteezy.com/system/resources/previews/018/931/148/original/cartoon-ticket-icon-png.png" alt="Ticket" id="ticketImage">
+                <button id="downloadBtn">Завантажити</button>
+            </div>
+        </main>
+    </div>
+    <script src="ActivePodorozh.js"></script>
+</body>
+</html>
