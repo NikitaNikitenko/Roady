@@ -1,0 +1,100 @@
+<?php 
+session_start();
+include "../Application/database/db.php";
+
+
+$name = '';
+$email = '';
+$number_phone = '';
+
+// авторизован ли юзер
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+    
+    $user = selectOne('user', ['id' => $userId]);
+    
+    if ($user) {
+        $name = $user['name'];
+        $email = $user['email'];
+        $number_phone = ['number_phone'];
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зв'яжіться з нами</title>
+<link rel="stylesheet" href="Support.css">
+<link rel="stylesheet" href="Support2.css">
+</head>
+<body>
+ <!-- ============================================ -->
+<!--                   Зв'язок                    -->
+<!-- ============================================ -->
+
+<section id="contact-1388">
+    <div class="cs-container">
+        <div class="cs-content">
+            <span class="cs-topper">Зв'яжіться з нами</span>
+            <h2 class="cs-title">Служба пiдтримки Roady</h2>
+            <p class="cs-text">
+                Наша служба технічна підтримка з радістю відповість на всі ваші запитання. Для цього заповніть форму правіше
+            </p>
+            <ul class="cs-ul">
+                <li class="cs-li">
+                    <picture class="cs-icon-wrapper">
+                        <img aria-hidden="true" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/phone-76.svg" alt="Іконка телефону" class="cs-icon" width="40" height="40" decoding="async">
+                    </picture>
+                    <div class="cs-flex-group">
+                        <span class="cs-header">Телефон</span>
+                        <a href="tel:888-4565-789" class="cs-link">+380 (097) 4565 789</a>
+                    </div>
+                </li>
+                <li class="cs-li">
+                    <picture class="cs-icon-wrapper">
+                        <img aria-hidden="true" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/mail-76.svg" alt="Іконка пошти" class="cs-icon" width="40" height="40" decoding="async">
+                    </picture>
+                    <div class="cs-flex-group">
+                        <span class="cs-header">Електронна пошта</span>
+                        <a href="mailto:Email@stitch.com" class="cs-link">roadytech@roady.com</a>
+                    </div>
+                </li>
+                <li class="cs-li">
+                    <picture class="cs-icon-wrapper">
+                        <img aria-hidden="true" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/pin-76.svg" alt="Іконка адреси" class="cs-icon" width="40" height="40" decoding="async">
+                    </picture>
+                    <div class="cs-flex-group">
+                        <span class="cs-header">Адреса</span>
+                        <a href="" class="cs-link">Харкiв, Свободи 1</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--Форма-->
+        <form class="cs-form" id="cs-form-1388" name="Форма зв'язку" method="post">
+            <h3 class="cs-h3">Задати питання</h3>
+            <label class="cs-label">
+                Ім'я
+                <input class="cs-input" required type="text" id="name-1388" name="name" placeholder="Ім'я" value="<?php echo htmlspecialchars($name); ?>">
+            </label>
+            <label class="cs-label cs-email">
+                Електронна пошта
+                <input class="cs-input" required type="email" id="email-1388" name="email" placeholder="Електронна пошта" value="<?php echo htmlspecialchars($email); ?>">
+            </label>
+            <label class="cs-label cs-phone">
+                Телефон
+                <input class="cs-input" required type="text" id="phone-1388" name="phone" placeholder="Телефон">
+            </label>
+            <label class="cs-label">
+                Повідомлення
+                <textarea class="cs-input cs-textarea" required name="Повідомлення" id="message-1388" placeholder="Напишіть повідомлення..."></textarea>
+            </label>
+            <button class="cs-button-solid cs-submit" type="submit">Надіслати повідомлення</button>
+        </form>
+    </div>
+</section>
+</body>
+</html>

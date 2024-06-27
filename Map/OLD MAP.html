@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
+        }
+        #map-container {
+            flex-grow: 1;
+            position: relative;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        #form-container, #ticket-container {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        #form-container {
+            top: 120px;
+            left: 20px;
+        }
+        #ticket-container {
+            top: 400px;
+            right: 20px;
+            display: none;
+        }
+        #form-container h2, #ticket-container h2 {
+            margin: 0 0 10px;
+        }
+        #form-container label, #ticket-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #form-container input, #form-container select, #ticket-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #form-container button, #ticket-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #form-container button:hover, #ticket-container button:hover {
+            background-color: #45a049;
+        }
+        #clear-button {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #clear-button:hover {
+            background-color: #e53935;
+        }
+        #arrival-time, #fare {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        #swap-button {
+            position: absolute;
+            top: 110px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+        #swap-button::before, #swap-button::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-top: 2px solid #000;
+            border-right: 2px solid #000;
+            transform: rotate(45deg);
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            background-color: transparent;
+        }
+        #swap-button::after {
+            transform: rotate(-135deg);
+        }
+        #payment-popup, #overlay {
+            display: none;
+            position: fixed;
+        }
+        #payment-popup {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+        }
+        #payment-popup h2 {
+            margin-top: 0;
+        }
+        #payment-popup input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #payment-popup button {
+            width: calc(100% - 16px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #payment-popup button:hover {
+            background-color: #45a049;
+        }
+        #payment-popup .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        #overlay {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .payment-method img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .payment-method:hover {
+            background-color: #f0f0f0;
+        }
+        .payment-details {
+            display: none;
+        }
+        .payment-details.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <div id="form-container">
+            <h2>Подорож</h2>
+            <form id="journey-form">
+                <label for="from">Звідки:</label>
+                <input type="text" id="from" name="from" placeholder="Місце відправлення" required>
+                
+                <label for="to">Куди:</label>
+                <input type="text" id="to" name="to" placeholder="Місце призначення" required>
+
+                <label for="transport">Транспорт:</label>
+                <select id="transport" name="transport" onchange="showTicketContainer()">
+                    <option value="">Вибрати</option>
+                    <option value="car">Автомобіль</option>
+                    <option value="bus">Автобус</option>
+                    <option value="train">Поїзд</option>
+                    <option value="tram">Трамвай</option>
+                    <option value="trolleybus">Тролейбус</option>
+                    <option value="metro">Метро</option>
+                </select>
+
+                <button type="submit"><i class="fas fa-road"></i> Вирушити в дорогу</button>
+                <button type="button" id="clear-button" onclick="clearRoute()" aria-label="Очистити маршрут"><i class="fas fa-trash-alt"></i> Очистити маршрут</button>
+            </form>
+            <div id="arrival-time"></div>
+            <div id="fare"></div>
+        </div>
+        <div id="map"></div>
+        <button id="swap-button" onclick="swapPlaces()" aria-label="Поміняти місцями">&#x21C5;</button>
+    </div>
+    
+    <div id="ticket-container">
+        <h2>Купівля квитка</h2>
+        <form id="ticket-form">
+            <label for="name">Ім'я:</label>
+            <input type="text" id="name" name="name" placeholder="Ваше ім'я" required>
+            
+            <label for="email">Електронна пошта:</label>
+            <input type="text" id="email" name="email" placeholder="Ваша електронна пошта" required>
+            
+            <label for="ticket-quantity">Кількість квитків:</label>
+            <input type="number" id="ticket-quantity" name="ticket-quantity" min="1" value="1" required>
+
+            <button type="button" onclick="validateTicketForm()">Купити квиток</button>
+        </form>
+    </div>
+
+    <div id="overlay" onclick="closePaymentPopup()"></div>
+    <div id="payment-popup">
+        <span class="close" onclick="closePaymentPopup()">&times;</span>
+        <h2>Оплата</h2>
+        <div class="payment-method" onclick="selectPaymentMethod('card')">
+            <img src="https://banner2.cleanpng.com/20180621/uhk/kisspng-visa-electron-credit-card-computer-icons-5b2c732dd97e02.8290038015296397258909.jpg" alt="Банківська карта">
+            <span>Банківська карта</span>
+        </div>
+        <div class="payment-method" onclick="selectPaymentMethod('google-wallet')">
+            <img src="https://external-preview.redd.it/3TazQWoIyXxrH261pdaW2DNeu0V1-JeivUxwW7M0aGU.jpg?auto=webp&s=da32a0014b13006e862f65d814d4a4e4472ea70f" alt="Google Wallet">
+            <span>Google Wallet</span>
+        </div>
+        <div class="payment-method" onclick="selectPaymentMethod('apple-pay')">
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968601.png" alt="Apple Pay">
+            <span>Apple Pay</span>
+        </div>
+
+        <div id="payment-card" class="payment-details">
+            <form id="card-payment-form">
+                <label for="card-number">Номер картки:</label>
+                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
+                
+                <label for="card-expiry">Термін дії (MM/YY):</label>
+                <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+                
+                <label for="card-cvc">CVC:</label>
+                <input type="number" id="card-cvc" name="card-cvc" placeholder="123" required>
+
+                <button type="submit">Оплатити</button>
+            </form>
+        </div>
+
+        <div id="payment-google-wallet" class="payment-details">
+            <form id="google-wallet-payment-form">
+                <p>Для оплати через Google Wallet, дотримуйтесь інструкцій на вашому пристрої.</p>
+                <button type="submit">Оплатити через Google Wallet</button>
+            </form>
+        </div>
+
+        <div id="payment-apple-pay" class="payment-details">
+            <form id="apple-pay-payment-form">
+                <p>Для оплати через Apple Pay, дотримуйтесь інструкцій на вашому пристрої.</p>
+                <button type="submit">Оплатити через Apple Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([49.9935, 36.2304], 13); // Coordinates of Kharkiv, Ukraine
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+        var routingControl;
+        var fromMarker;
+        var toMarker;
+
+        // Show/hide ticket container based on transport selection
+        function showTicketContainer() {
+            var transport = document.getElementById("transport").value;
+            document.getElementById("ticket-container").style.display = 
+                (transport === "bus" || transport === "train" || transport === "tram" || transport === "trolleybus" || transport === "metro") ? "block" : "none";
+        }
+
+        // Clear the route
+        function clearRoute() {
+            if (routingControl) { map.removeControl(routingControl); routingControl = null; }
+            if (fromMarker) { map.removeLayer(fromMarker); fromMarker = null; }
+            if (toMarker) { map.removeLayer(toMarker); toMarker = null; }
+            document.getElementById("arrival-time").innerHTML = "";
+            document.getElementById("fare").innerHTML = "";
+            document.getElementById("journey-form").reset();
+        }
+
+        // Swap places in the form
+        function swapPlaces() {
+            var fromInput = document.getElementById("from");
+            var toInput = document.getElementById("to");
+            [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
+        }
+
+        // Reverse geocode coordinates to an address
+        function reverseGeocode(lat, lon, callback) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`)
+                .then(response => response.json())
+                .then(data => {
+                    callback(data?.address?.road || data?.address?.pedestrian || data?.address?.suburb || data?.address?.city || null);
+                })
+                .catch(error => { console.error('Error fetching reverse geocode data:', error); callback(null); });
+        }
+
+        // Handle map clicks for setting route markers
+        function onMapClick(e) {
+            if (!fromMarker) {
+                fromMarker = L.marker(e.latlng).addTo(map);
+                reverseGeocode(e.latlng.lat, e.latlng.lng, function(address) {
+                    document.getElementById("from").value = address || `${e.latlng.lat}, ${e.latlng.lng}`;
+                });
+            } else if (!toMarker) {
+                toMarker = L.marker(e.latlng).addTo(map);
+                reverseGeocode(e.latlng.lat, e.latlng.lng, function(address) {
+                    document.getElementById("to").value = address || `${e.latlng.lat}, ${e.latlng.lng}`;
+                });
+            }
+        }
+
+        map.on('click', onMapClick);
+
+        // Handle journey form submission
+        document.getElementById("journey-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+            var transport = document.getElementById("transport").value;
+
+            if (!fromMarker || !toMarker) {
+                if (!fromMarker) {
+                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${from}, Харків, Україна`)
+                        .then(response => response.json())
+                        .then(fromData => {
+                            if (fromData.length === 0) { alert("Місце відправлення не знайдено!"); return; }
+                            var fromCoords = [fromData[0].lat, fromData[0].lon];
+                            fromMarker = L.marker(fromCoords).addTo(map);
+                            if (fromMarker && toMarker) { createRoute(fromCoords, toMarker.getLatLng(), transport); }
+                        })
+                        .catch(error => { console.error('Error fetching origin coordinates:', error); });
+                }
+                if (!toMarker) {
+                    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${to}, Харків, Україна`)
+                        .then(response => response.json())
+                        .then(toData => {
+                            if (toData.length === 0) { alert("Місце призначення не знайдено!"); return; }
+                            var toCoords = [toData[0].lat, toData[0].lon];
+                            toMarker = L.marker(toCoords).addTo(map);
+                            if (fromMarker && toMarker) { createRoute(fromMarker.getLatLng(), toCoords, transport); }
+                        })
+                        .catch(error => { console.error('Error fetching destination coordinates:', error); });
+                }
+            } else {
+                createRoute(fromMarker.getLatLng(), toMarker.getLatLng(), transport);
+            }
+        });
+
+        // Create the route on the map
+        function createRoute(fromCoords, toCoords, transport) {
+            if (routingControl) { map.removeControl(routingControl); }
+
+            var plan;
+            switch (transport) {
+                case "car":
+                    plan = L.Routing.plan([L.latLng(fromCoords), L.latLng(toCoords)], { 
+                        routeWhileDragging: true,
+                        router: L.Routing.osrmv1({
+                            serviceUrl: 'https://routing.openstreetmap.de/routed-car/route/v1'
+                        })
+                    });
+                    break;
+                case "bus":
+                case "train":
+                    plan = L.Routing.plan([L.latLng(fromCoords), L.latLng(toCoords)], {
+                        routeWhileDragging: true,
+                        createMarker: function(i, wp) {
+                            return L.marker(wp.latLng, { draggable: true });
+                        },
+                        router: L.Routing.osrmv1({ 
+                            serviceUrl: 'https://routing.openstreetmap.de/routed-car/route/v1' 
+                        })
+                    });
+                    break;
+                case "tram":
+                case "trolleybus":
+                case "metro":
+                    plan = L.Routing.plan([L.latLng(fromCoords), L.latLng(toCoords)], {
+                        routeWhileDragging: true,
+                        createMarker: function(i, wp) {
+                            return L.marker(wp.latLng, { draggable: true });
+                        },
+                        router: L.Routing.osrmv1({
+                            serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1' 
+                        })
+                    });
+                    break;
+                default:
+                    alert("Виберіть вид транспорту!");
+                    return;
+            }
+
+            routingControl = L.Routing.control({ plan: plan }).addTo(map);
+
+            routingControl.on('routesfound', function(e) {
+                var summary = e.routes[0].summary;
+                var distance = (summary.totalDistance / 1000).toFixed(2);
+                var time = summary.totalTime; // Total time in seconds
+
+                var arrivalTime = new Date();
+                arrivalTime.setSeconds(arrivalTime.getSeconds() + time);
+
+                var hours = arrivalTime.getHours().toString().padStart(2, '0');
+                var minutes = arrivalTime.getMinutes().toString().padStart(2, '0');
+                
+                document.getElementById("arrival-time").innerHTML = `Приблизний час прибуття: ${hours}:${minutes}`;
+                document.getElementById("fare").innerHTML = `Відстань: ${distance} км - Вартість: ${calculateFare(distance, transport)} грн`;
+            });
+        }
+
+        // Calculate fare with increased prices
+        function calculateFare(distance, transport) {
+            var baseFare;
+            switch (transport) {
+                case "bus":
+                    baseFare = 35;
+                    break;
+                case "train":
+                    baseFare = 70;
+                    break;
+                case "tram":
+                case "trolleybus":
+                case "metro":
+                    baseFare = 21;
+                    break;
+                case "car":
+                    baseFare = 0;
+                    break;
+                default:
+                    baseFare = 0;
+            }
+            return (baseFare + distance * 14).toFixed(2); // Price increased by a factor of 7
+        }
+
+        // Validate ticket form and show payment popup
+        function validateTicketForm() {
+            var form = document.getElementById("ticket-form");
+            if (form.checkValidity()) {
+                showPaymentPopup();
+            } else {
+                alert("Будь ласка, заповніть всі поля!");
+            }
+        }
+
+        // Show the payment popup
+        function showPaymentPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("payment-popup").style.display = "block";
+        }
+
+        // Close the payment popup
+        function closePaymentPopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("payment-popup").style.display = "none";
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            var details = document.getElementsByClassName("payment-details");
+            for (var i = 0; i < details.length; i++) {
+                details[i].classList.remove("active");
+            }
+            document.getElementById("payment-" + method).classList.add("active");
+        }
+
+        // Function to calculate total trip duration
+        function calculateTotalDuration(routes) {
+            var totalDuration = routes.reduce((sum, route) => sum + route.summary.totalTime, 0);
+            return (totalDuration / 3600).toFixed(2);
+        }
+
+        // Function to handle different types of payment methods
+        function handlePayment(method) {
+            var paymentDetails = document.getElementById("payment-" + method);
+            if (paymentDetails) {
+                paymentDetails.classList.add("active");
+            }
+        }
+
+        // Function to display real-time traffic information
+        function displayTrafficInfo() {
+            // Example placeholder: Actual implementation would require integrating with a real-time traffic API
+            alert("Displaying real-time traffic information...");
+        }
+
+        // Function to save routes
+        function saveRoute(route) {
+            // Example placeholder: Actual implementation would require saving route data to a database or local storage
+            alert("Route saved successfully!");
+        }
+
+        // Function to share routes via social media or email
+        function shareRoute(route) {
+            // Example placeholder: Actual implementation would require integrating with social media or email APIs
+            alert("Route shared successfully!");
+        }
+    </script>
+</body>
+</html>

@@ -1,3 +1,8 @@
+/*-- -------------------------- -->
+<---          Contact           -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
 @media only screen and (min-width: 0rem) {
   #contact-1388 {
       padding: var(--sectionPadding);
@@ -7,7 +12,7 @@
   }
   #contact-1388 .cs-container {
       width: 100%;
-
+      /* changes to 1280px at tablet */
       max-width: 36.5rem;
       margin: auto;
       display: flex;
@@ -15,17 +20,17 @@
       align-items: stretch;
       flex-direction: column;
       column-gap: auto;
-
+      /* 48px - 64px */
       gap: clamp(2rem, 3vw, 3rem);
       position: relative;
   }
   #contact-1388 .cs-content {
-
+      /* set text align to left if content needs to be left aligned */
       text-align: left;
       width: 100%;
       display: flex;
       flex-direction: column;
-
+      /* centers content horizontally, set to flex-start to left align */
       align-items: flex-start;
   }
 
@@ -88,7 +93,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
+      /* prevents flexbox from squishing it */
       flex: none;
       transition: transform 0.3s;
   }
@@ -100,9 +105,10 @@
   #contact-1388 .cs-form {
       width: 100%;
       max-width: 39.375rem;
-
+      /* 24px - 48px top and bottom */
+      /* 16px - 48px left and right */
       padding: clamp(1.5rem, 5.18vw, 3rem) clamp(1rem, 4vw, 3rem);
-
+      /* prevents flexbox from affecting height and width */
       box-sizing: border-box;
       background-color: #fff;
       border-radius: 1rem;
@@ -113,7 +119,7 @@
       gap: 0.75rem;
   }
   #contact-1388 .cs-h3 {
-
+      /* 20px - 39px */
       font-size: clamp(1.25rem, 3vw, 2.4375rem);
       line-height: 1.2em;
       font-weight: 700;
@@ -121,7 +127,7 @@
       color: var(--headerColor);
   }
   #contact-1388 .cs-label {
-
+      /* 14px - 16px */
       font-size: clamp(0.875rem, 1.5vw, 1rem);
       width: 100%;
       color: var(--headerColor);
@@ -141,7 +147,7 @@
       background-color: #f7f7f7;
       border-radius: 0.5rem;
       border: none;
-
+      /* prevents padding from adding to height and width */
       box-sizing: border-box;
   }
   #contact-1388 .cs-input::placeholder {
@@ -199,7 +205,7 @@
       cursor: pointer;
   }
 }
-
+/* Tablet - 768px */
 @media only screen and (min-width: 48rem) {
   #contact-1388 .cs-container {
       max-width: 80rem;
@@ -208,14 +214,14 @@
   }
   #contact-1388 .cs-content {
       width: 47%;
-
+      /* prevents flexbox from squishing it */
       flex: none;
   }
   #contact-1388 .cs-submit {
       width: auto;
   }
 }
-
+/* Desktop - 1024px */
 @media only screen and (min-width: 64rem) {
   #contact-1388 .cs-form {
       width: 46%;
@@ -225,9 +231,11 @@
       width: auto;
   }
 }
-
+/* Large Desktop - 1500px */
 @media only screen and (min-width: 93.75rem) {
   #contact-1388 .cs-graphic {
       display: block;
   }
 }
+
+                              

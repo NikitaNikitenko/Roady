@@ -12,6 +12,7 @@ function openForm(evt, formName) {
     evt.currentTarget.className += " active";
 }
 
+// Get the element with id="defaultOpen" and click on it to default open the registration form
 document.getElementById("defaultOpen").click();
 
 function togglePasswordVisibility(id) {

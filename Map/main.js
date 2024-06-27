@@ -1,6 +1,11 @@
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGV2YWxpc2FtaXIiLCJhIjoiY2w4eDF5cm40MDI4NjNycG5vY2x6bDV2diJ9._dXVRYRmdrFaWLe1HbEneg";
 
+//   var map = new mapboxgl.Map({
+//   container: "map",
+//   style: "mapbox://styles/mapbox/streets-v11",
+// });
+
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
   enableHighAccuracy: true,
 });

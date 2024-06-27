@@ -1,26 +1,31 @@
+/*-- -------------------------- -->
+<---           Steps            -->
+<--- -------------------------- -*/
+
+/* Mobile - 360px */
 @media only screen and (min-width: 0rem) {
     #steps-284 {
       padding: var(--sectionPadding);
     }
     #steps-284 .cs-container {
       width: 100%;
-
+      /* changes to 1104px on tablet */
       max-width: 34.375rem;
       margin: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-
+      /* 48px - 64px */
       gap: clamp(3rem, 6vw, 4rem);
     }
     #steps-284 .cs-content {
-
+      /* set text align to left if content needs to be left aligned */
       text-align: left;
       width: 100%;
       max-width: 27.125rem;
       display: flex;
       flex-direction: column;
-
+      /* centers content horizontally, set to flex-start to left align */
       align-items: flex-start;
     }
     #steps-284 .cs-text {
@@ -31,7 +36,7 @@
     }
     #steps-284 .cs-button-solid {
       font-size: 1rem;
-
+      /* 46px - 56px */
       line-height: clamp(2.875rem, 5.5vw, 3.5rem);
       text-decoration: none;
       font-weight: 700;
@@ -45,7 +50,7 @@
       display: inline-block;
       position: relative;
       z-index: 1;
-
+      /* prevents padding from adding to the width */
       box-sizing: border-box;
     }
     #steps-284 .cs-button-solid:before {
@@ -87,19 +92,19 @@
     }
     #steps-284 .cs-item:nth-of-type(2) .cs-number,
     #steps-284 .cs-item:nth-of-type(4) .cs-number {
-
+      /* Send number to the right */
       order: 2;
       margin: 0;
-
+      /* 15px - 24px */
       margin-left: clamp(0.9375rem, 3vw, 1.5rem);
     }
     #steps-284 .cs-item:nth-of-type(2) .cs-item-text,
     #steps-284 .cs-item:nth-of-type(4) .cs-item-text {
-
+      /* reverse padding */
       padding-left: 0;
-
+      /* 15px - 24px */
       padding-right: clamp(0.9375rem, 3vw, 1.5rem);
-
+      /* reset the border on the :before */
     }
     #steps-284 .cs-item:nth-of-type(2) .cs-item-text:before,
     #steps-284 .cs-item:nth-of-type(4) .cs-item-text:before {
@@ -113,7 +118,7 @@
     }
     #steps-284 .cs-item:nth-of-type(2) .cs-item-text:after,
     #steps-284 .cs-item:nth-of-type(4) .cs-item-text:after {
-
+      /* move dot to the right now */
       left: auto;
       right: -0.9375rem;
     }
@@ -131,12 +136,12 @@
       top: -1px;
     }
     #steps-284 .cs-number {
-
+      /* 16px - 20px */
       font-size: clamp(1rem, 2vw, 1.25rem);
       font-weight: 700;
-
+      /* 15px - 24px */
       margin-right: clamp(0.9375rem, 3vw, 1.5rem);
-
+      /* 40px - 52px */
       width: clamp(2.5rem, 5.1vw, 3.25rem);
       height: clamp(2.5rem, 5.1vw, 3.25rem);
       border-radius: 50%;
@@ -146,25 +151,25 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
+      /* prevents flexbox from squishing it */
       flex: none;
       position: relative;
     }
     #steps-284 .cs-item-text {
-
+      /* 14px - 16px */
       font-size: clamp(0.875rem, 1.6vw, 1rem);
       line-height: 1.5em;
       margin: 0;
       max-width: 18.75rem;
-
+      /* 22px - 32px */
       padding: clamp(1.375rem, 3vw, 2rem) 0;
       box-sizing: content-box;
-
+      /* 15px - 24px */
       padding-left: clamp(0.9375rem, 3vw, 1.5rem);
       position: relative;
     }
     #steps-284 .cs-item-text:before {
-
+      /* Green line */
       content: "";
       width: 70%;
       height: 100%;
@@ -179,7 +184,7 @@
       left: 0;
     }
     #steps-284 .cs-item-text:after {
-
+      /* list circle */
       content: "";
       width: 0.5rem;
       height: 0.5rem;
@@ -195,7 +200,7 @@
       transform: translateY(-50%);
     }
   }
-
+  /* Tablet - 768px */
   @media only screen and (min-width: 48rem) {
     #steps-284 .cs-container {
       max-width: 69rem;
@@ -206,12 +211,13 @@
     }
     #steps-284 .cs-content {
       width: 50%;
-
+      /* reset margin to play nice with flexbox */
       margin: 0;
     }
     #steps-284 .cs-right-section {
       width: 57%;
-
+      /* 20px - 25px - this pulls the section up so it's flush with the top of the left section, the padding top on the .cs-item-text is creating a gap at the top of the section. Wrapped in a calc() function to turn clamp() value into a negative number */
       margin-top: calc(clamp(1.25rem, 2vw, 1.5625rem) * -1);
     }
   }
+                                  

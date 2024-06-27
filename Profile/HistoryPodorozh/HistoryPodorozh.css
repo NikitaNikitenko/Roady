@@ -139,6 +139,7 @@ body {
     text-align: center;
 }
 
+/* Additional improvements */
 .sidebar ul li.active a {
     background-color: #00b894;
     color: #fff;
